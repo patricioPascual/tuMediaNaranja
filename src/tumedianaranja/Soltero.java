@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Soltero extends Usuario {
 
     private Perfil perfil;
-    private ArrayList<Preferencias> preferencias;
+    private ArrayList<Preferencia> preferencias;
     private String nombreCompleto;
     private String dni;
     private String domicilio;
@@ -29,10 +29,13 @@ public class Soltero extends Usuario {
     private ArrayList<StoryMatch> story;
     private LocalDate fechaCreacion;
 
-    public Soltero(Perfil perfil, ArrayList<Preferencias> preferencias, String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, Tarjeta tarjetaCobro, String nombre, String password) {
+    public Soltero(Perfil perfil, ArrayList<Preferencia> preferencias, String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, Tarjeta tarjetaCobro, String nombre, String password) {
         super(nombre, password);
+        Scanner teclado = new Scanner(System.in);
+        this.preferencias = new ArrayList<>();
+        Preferencia prefes = new Preferencia(teclado);
+        this.preferencias.add(prefes);
         this.perfil = perfil;
-        this.preferencias = preferencias;
         this.nombreCompleto = nombreCompleto;
         this.dni = dni;
         this.domicilio = domicilio;
@@ -43,6 +46,7 @@ public class Soltero extends Usuario {
         this.hijos = hijos;
         this.tarjetaCobro = tarjetaCobro;
         this.fechaCreacion = LocalDate.now();
+
     }
 
     public LocalDate getFechaCreacion() {
@@ -57,11 +61,11 @@ public class Soltero extends Usuario {
         this.perfil = perfil;
     }
 
-    public ArrayList<Preferencias> getPreferencias() {
+    public ArrayList<Preferencia> getPreferencias() {
         return preferencias;
     }
 
-    public void setPreferencias(ArrayList<Preferencias> preferencias) {
+    public void setPreferencias(ArrayList<Preferencia> preferencias) {
         this.preferencias = preferencias;
     }
 
@@ -158,25 +162,44 @@ public class Soltero extends Usuario {
     }
 
     public void verPreferenciasDate(LocalDate fecha) {
-        for (Preferencias aux : preferencias) {
+        for (Preferencia aux : preferencias) {
             if (aux.getFecha().equals(fecha)) {
                 System.out.println("Las preferecncias para esa fecha : ");
                 aux.mostrarPreferencias();
             }
         }
-
     }
-   public void cargarPreferencias(){
-       Preferencias nuevaPref= new Preferencias();
-       Scanner teclado=new Scanner(System.in);
-       System.out.println("Ingrese el nombre de la preferencia (pelo ,altura ,otro)");
-       String nombre= teclado.next();
-       System.out.println("Ingrese el valor deseado : ");
-       Object objeto= teclado.next();
-       System.out.println("ingrese del 1 a 5 que tan importante es :");
-       int ponderacion= teclado.nextInt();
-       nuevaPref.cargarCriterio(email, sexo, edad);
-       preferencias.add(nuevaPref);
-       
-   }
+
+    public String opciones() {
+        Scanner teclado = new Scanner(System.in);
+        int opcion = 0;
+
+        do {
+            System.out.println("---ELIGE TU OPCION---");
+            System.out.println("1. Bajo");
+            System.out.println("2. Medio");
+            System.out.println("3. Alto");
+
+            if (teclado.hasNextInt()) {
+                opcion = teclado.nextInt();
+                switch (opcion) {
+                    case 1:
+                        return "Bajo";
+                        
+                    case 2:
+                        return "Medio";
+                        
+                    case 3:
+                        return "Alto";
+                        
+                    default:
+                        System.out.println("Opcion no valida");
+                }
+            } else {
+                System.out.println("Ingrese un numero valido!");
+                teclado.next();
+            }
+        } while (opcion < 1 && opcion > 3);
+        return "";
+    }
 }
