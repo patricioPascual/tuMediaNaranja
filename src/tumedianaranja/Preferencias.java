@@ -112,7 +112,7 @@ public class Preferencias {
     
 
     public ArrayList<Criterio> getCriterios() {
-        return criterios;
+        return atributos;
     }
 
     public String getAficiones() {
@@ -123,7 +123,7 @@ public class Preferencias {
         return fecha;
     }
     public void mostrarPreferencias(){
-        for(Criterio aux: criterios){
+        for(Criterio aux: atributos){
             System.out.println(aux.toString());
         }
         System.out.println("Aficiones :" + aficiones);
@@ -132,6 +132,6 @@ public class Preferencias {
      public void cargarCriterio(String nombre,Object valor,int ponderacion){
        
         Criterio nuevoCriterio= new Criterio(nombre,valor,ponderacion);
-        criterios.add(nuevoCriterio);
+        
     }
 }

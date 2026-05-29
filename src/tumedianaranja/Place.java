@@ -9,5 +9,12 @@ package tumedianaranja;
  * @author patri
  */
 public class Place {
+    private String[] tipo; 
+    private String nombre; 
+
+    public Place(String[] tipo, String nombre) {
+        this.tipo =tipo;
+        this.nombre = nombre;
+    }
     
 }

@@ -6,12 +6,14 @@ package tumedianaranja;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author patri
  */
-public class Soltero extends Usuario{
+public class Soltero extends Usuario {
+
     private Perfil perfil;
     private ArrayList<Preferencias> preferencias;
     private String nombreCompleto;
@@ -26,7 +28,7 @@ public class Soltero extends Usuario{
     private Tarjeta tarjetaCobro;
     private ArrayList<StoryMatch> story;
     private LocalDate fechaCreacion;
-    
+
     public Soltero(Perfil perfil, ArrayList<Preferencias> preferencias, String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, Tarjeta tarjetaCobro, String nombre, String password) {
         super(nombre, password);
         this.perfil = perfil;
@@ -40,7 +42,7 @@ public class Soltero extends Usuario{
         this.edad = edad;
         this.hijos = hijos;
         this.tarjetaCobro = tarjetaCobro;
-        this.fechaCreacion=LocalDate.now();
+        this.fechaCreacion = LocalDate.now();
     }
 
     public LocalDate getFechaCreacion() {
@@ -151,17 +153,30 @@ public class Soltero extends Usuario{
         this.story = story;
     }
 
+    public void VideoChat(Soltero soltero1, Soltero soltero2) {
 
-         public void VideoChat(Soltero soltero1, Soltero soltero2){
-             
-         }
-         public void verPreferenciasDate(LocalDate fecha){
-             for(Preferencias aux : preferencias){
-                 if(aux.getFecha().equals(fecha)){
-                     System.out.println("Las preferecncias para esa fecha : "   );
-                     aux.mostrarPreferencias();
-                 }
-             }
-             
-         }
+    }
+
+    public void verPreferenciasDate(LocalDate fecha) {
+        for (Preferencias aux : preferencias) {
+            if (aux.getFecha().equals(fecha)) {
+                System.out.println("Las preferecncias para esa fecha : ");
+                aux.mostrarPreferencias();
+            }
+        }
+
+    }
+   public void cargarPreferencias(){
+       Preferencias nuevaPref= new Preferencias();
+       Scanner teclado=new Scanner(System.in);
+       System.out.println("Ingrese el nombre de la preferencia (pelo ,altura ,otro)");
+       String nombre= teclado.next();
+       System.out.println("Ingrese el valor deseado : ");
+       Object objeto= teclado.next();
+       System.out.println("ingrese del 1 a 5 que tan importante es :");
+       int ponderacion= teclado.nextInt();
+       nuevaPref.cargarCriterio(email, sexo, edad);
+       preferencias.add(nuevaPref);
+       
+   }
 }
