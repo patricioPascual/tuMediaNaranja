@@ -6,119 +6,109 @@ package tumedianaranja;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-
+import java.util.List;
+ 
 /**
+ * Preferencias representa la descripción actual de la persona buscada por un Soltero.
  *
- * @author patri
+ * COMPOSICIÓN: Preferencias "posee" sus Criterios. Si se elimina una instancia de
+ * Preferencias, sus Criterios dejan de tener sentido y deben destruirse con ella.
+ *
+ * El historial de preferencias anteriores queda guardado en el List<Preferencias>
+ * dentro de Soltero. Solo la instancia "actual" se usa para el emparejamiento.
  */
 public class Preferencia {
-    private ArrayList<Criterio> atributos;
-    private String aficiones;
-    private LocalDate fecha;
-
-      public Preferencia(Scanner teclado) {
-        
-        this.fecha = LocalDate.now();
+ 
+    // Composición: esta lista es PROPIA de la instancia; los Criterio no existen
+    // fuera del contexto de esta Preferencias.
+    private List<Criterio> atributos;
+ 
+    private String aficiones; // texto libre para emparejamiento manual (nivel afinidad < 5)
+    private LocalDate fecha;  // fecha en que se registró esta versión de preferencias
+ 
+    // ------------------------------------------------------------------ constructor
+ 
+    public Preferencia() {
         this.atributos = new ArrayList<>();
-        
-        System.out.println("\n--- CONFIGURACIÓN DE PREFERENCIAS DE PAREJA ---");
-        
-        System.out.print("Ingrese aficiones generales (ej: lectura, cine): ");
-        this.aficiones = teclado.nextLine();
-
-        // 1. Estado Civil (String)
-        System.out.print("Estado Civil deseado: ");
-        cargarCriterio("Estado Civil", teclado.nextLine(), cargarPonderacion());
-
-        // 2. Margen de Edad (Objeto Margen)
-        System.out.print("Margen de edad - Mínimo: ");
-        int edadMin = teclado.nextInt();
-        System.out.print("Margen de edad - Máximo: ");
-        int edadMax = teclado.nextInt();
-        agregarCriterio("Margen de Edad", new Margen(edadMin, edadMax), 5);
-
-        // 3. ¿Acepta hijos? (Boolean)
-        System.out.print("¿Acepta que tenga hijos? (true/false): ");
-        cargarCriterio("Acepta Hijos", teclado.nextBoolean(), 4);
-        teclado.nextLine(); // Limpiar el buffer
-
-        // 4. Nivel Cultural (String)
-        System.out.print("Nivel Cultural mínimo deseado: ");
-        cargarCriterio("Nivel Cultural", teclado.nextLine(), 2);
-
-        // 5. Margen Estatura (Objeto Margen)
-        System.out.print("Margen estatura - Mínima (ej: 1.60): ");
-        double estMin = teclado.nextDouble();
-        System.out.print("Margen estatura - Máxima (ej: 1.85): ");
-        double estMax = teclado.nextDouble();
-        cargarCriterio("Margen Estatura", (estMin, estMax), 1);
-
-        // 6. Margen Peso (Objeto Margen)
-        System.out.print("Margen peso - Máximo (en kg): ");
-        double pesoMax = teclado.nextDouble();
-        agregarCriterio("Margen Peso", pesoMax);
-        teclado.nextLine(); // Limpiar el buffer
-
-        // 7. Color de Pelo (String)
-        System.out.print("Color de pelo deseado: ");
-        cargarCriterio("Color de Pelo", teclado.nextLine(), 2);
-
-        // 8. Color de Ojos (String)
-        System.out.print("Color de ojos deseado: ");
-        cargarCriterio("Color de Ojos", teclado.nextLine(), 2);
-
-        // 9. Cariñoso/a (Integer - Escala 1 al 10)
-        System.out.print("Nivel de afecto esperado (Cariñoso/a del 1 al 10): ");
-        cargarCriterio("Personalidad: Cariñoso", teclado.nextInt(), 3);
-
-        // 10. Alegre (Integer - Escala 1 al 10)
-        System.out.print("Nivel de alegría esperado (Alegre del 1 al 10): ");
-        cargarCriterio("Personalidad: Alegre", teclado.nextInt(), 3);
-
-        // 11. Compañero/a (Integer - Escala 1 al 10)
-        System.out.print("Nivel de compañerismo esperado (Compañero/a del 1 al 10): ");
-        cargarCriterio("Personalidad: Compañero", teclado.nextInt(), 5);
-
-        // 12. Salidor/a (Boolean)
-        System.out.print("¿Debe ser una persona salidora? (true/false): ");
-        cargarCriterio("Personalidad: Salidor", teclado.nextBoolean(), 4);
-        teclado.nextLine(); // Limpiar el buffer final
+        this.fecha = LocalDate.now();
     }
-    
-    
-   
-    
-
-    public ArrayList<Criterio> getCriterios() {
-        return atributos;
+ 
+    public Preferencia(List<Criterio> atributos, String aficiones) {
+        if (atributos == null)
+            throw new IllegalArgumentException("La lista de atributos no puede ser nula.");
+        this.atributos = new ArrayList<>(atributos); // copia defensiva
+        this.aficiones = aficiones;
+        this.fecha = LocalDate.now();
     }
-
-    public String getAficiones() {
-        return aficiones;
+ 
+    // ------------------------------------------------------------------ operaciones
+ 
+    /**
+     * Agrega un nuevo criterio a la lista de preferencias.
+     */
+    public void agregarCriterio(Criterio criterio) {
+        if (criterio == null)
+            throw new IllegalArgumentException("El criterio no puede ser nulo.");
+        atributos.add(criterio);
     }
-
-    public LocalDate getFecha() {
-        return fecha;
+ 
+    /**
+     * Elimina un criterio por nombre.
+     * @return true si se encontró y eliminó, false si no existía
+     */
+    public boolean eliminarCriterio(String nombre) {
+        return atributos.removeIf(c -> c.getNombre().equalsIgnoreCase(nombre));
     }
-    public void mostrarPreferencias(){
-        for(Criterio aux: atributos){
-            System.out.println(aux.toString());
-        }
-        System.out.println("Aficiones :" + aficiones);
-        
+ 
+    /**
+     * Busca un criterio por nombre.
+     * @return el Criterio encontrado, o null si no existe
+     */
+    public Criterio buscarCriterio(String nombre) {
+        return atributos.stream()
+                .filter(c -> c.getNombre().equalsIgnoreCase(nombre))
+                .findFirst()
+                .orElse(null);
     }
-     public void cargarCriterio(String nombre,Object valor,int ponderacion){
-       
-        Criterio nuevoCriterio= new Criterio(nombre,valor,ponderacion);
-        
+ 
+    /**
+     * Cambia la ponderación de un criterio específico.
+     * Si el criterio no existe, lanza excepción.
+     */
+    public void cambiarPreferencias(String nombreCriterio, int nuevaPonderacion) {
+        Criterio c = buscarCriterio(nombreCriterio);
+        if (c == null)
+            throw new IllegalArgumentException("No existe el criterio: " + nombreCriterio);
+        c.cambiarPonderacion(nuevaPonderacion);
     }
-    
-     public int cargarPonderacion() {
-         Scanner teclado = new Scanner(System.in);
-         System.out.println("Ingresa el valor de interes del 1 al 5");
-         int ponderacion = teclado.nextInt();
-         return ponderacion;
-     }
+ 
+    /**
+     * Devuelve los atributos ordenados por ponderación descendente
+     * (los más importantes primero), útil para el algoritmo de emparejamiento.
+     */
+    public List<Criterio> getAtributosOrdenados() {
+        return atributos.stream()
+                .sorted((a, b) -> Integer.compare(b.getPonderacion(), a.getPonderacion()))
+                .toList();
+    }
+ 
+    // ------------------------------------------------------------------ getters / setters
+ 
+    public List<Criterio> getAtributos() { return new ArrayList<>(atributos); } // copia defensiva
+ 
+    public String getAficiones() { return aficiones; }
+    public void setAficiones(String aficiones) { this.aficiones = aficiones; }
+ 
+    public LocalDate getFecha() { return fecha; }
+ 
+    // ------------------------------------------------------------------ utilidad
+ 
+    @Override
+    public String toString() {
+        return "Preferencias{" +
+                "fecha=" + fecha +
+                ", aficiones='" + aficiones + '\'' +
+                ", totalCriterios=" + atributos.size() +
+                '}';
+    }
 }
