@@ -1,6 +1,7 @@
 
 package tumedianaranja;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -9,13 +10,13 @@ public class MedioDePago {
     public Soltero duenoTarjeta;
     public String nroTarjeta;
     public String titular;
-    public Date fechaExpira;
+    public LocalDate fechaExpira;
     public String banco;
     public Double saldo;
     public int codSeguridad;
     public String motivoGasto;
 
-    public MedioDePago(String nroTarjeta, String titular, Date fechaExpira, String banco, Double saldo, int codSeguridad) {
+    public MedioDePago(String nroTarjeta, String titular, LocalDate fechaExpira, String banco, Double saldo, int codSeguridad) {
         this.nroTarjeta = nroTarjeta;
         this.titular = titular;
         this.fechaExpira = fechaExpira;
@@ -40,11 +41,11 @@ public class MedioDePago {
         this.titular = titular;
     }
 
-    public Date getFechaExpira() {
+    public LocalDate getFechaExpira() {
         return fechaExpira;
     }
 
-    public void setFechaExpira(Date fechaExpira) {
+    public void setFechaExpira(LocalDate fechaExpira) {
         this.fechaExpira = fechaExpira;
     }
 
