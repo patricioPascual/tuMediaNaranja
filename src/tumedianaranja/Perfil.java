@@ -5,23 +5,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Perfil {
-     private Double estatura;
-     private Double peso;
-     private int edad;
-     private String colorOjos;
-     private String colorPelo;
-     private String[] nivelCultural;
-     private String[] nivelCarinio;
-     private String[] companierismo;
-     private String[] alegre;
-     private String[] salidor;
-     private ArrayList<String> aficiones; 
-     private File fotoPerfil; 
 
-    public Perfil(Double estatura, Double peso, int edad, String colorOjos, String colorPelo, String[] nivelCultural, String[] nivelCarinio, String[] companierismo, String[] alegre, String[] salidor, ArrayList<String> aficiones) {
+    private Double estatura;
+    private Double peso;
+    private int edad;
+    private String colorOjos;
+    private String colorPelo;
+    private String[] nivelCultural;
+    private String[] nivelCarinio;
+    private String[] companierismo;
+    private String[] alegre;
+    private String[] salidor;
+    private ArrayList<String> aficiones;
+    private File fotoPerfil;
+
+    public Perfil(Double estatura, Double peso, String colorOjos, String colorPelo, String[] nivelCultural, String[] nivelCarinio, String[] companierismo, String[] alegre, String[] salidor, ArrayList<String> aficiones) {
         this.estatura = estatura;
         this.peso = peso;
-        this.edad = edad;
         this.colorOjos = colorOjos;
         this.colorPelo = colorPelo;
         this.nivelCultural = nivelCultural;
@@ -37,13 +37,11 @@ public class Perfil {
 
         System.out.print("Ingrese estatura (ej: 1.75): ");
         Double estatura = teclado.nextDouble();
+        teclado.nextLine();
 
         System.out.print("Ingrese peso (ej: 70.5): ");
         Double peso = teclado.nextDouble();
-
-        System.out.print("Ingrese edad: ");
-        int edad = teclado.nextInt();
-        teclado.nextLine(); 
+        teclado.nextLine();
 
         System.out.print("Ingrese color de ojos: ");
         String colorOjos = teclado.nextLine();
@@ -54,13 +52,13 @@ public class Perfil {
         System.out.print("Ingrese nivel cultural (bajo/medio/alto): ");
         String[] nivelCultural = new String[]{teclado.nextLine().toLowerCase()};
 
-        System.out.print("Ingrese nivel de cariño (bajo/medio/alto): ");
+        System.out.print("Ingrese nivel de carino (bajo/medio/alto): ");
         String[] nivelCarinio = new String[]{teclado.nextLine().toLowerCase()};
 
-        System.out.print("Ingrese nivel de compañerismo (bajo/medio/alto): ");
+        System.out.print("Ingrese nivel de companerismo (bajo/medio/alto): ");
         String[] companierismo = new String[]{teclado.nextLine().toLowerCase()};
 
-        System.out.print("Ingrese nivel de alegría [alegre] (bajo/medio/alto): ");
+        System.out.print("Ingrese nivel de alegria [alegre] (bajo/medio/alto): ");
         String[] alegre = new String[]{teclado.nextLine().toLowerCase()};
 
         System.out.print("Ingrese nivel de salida [salidor] (bajo/medio/alto): ");
@@ -68,17 +66,19 @@ public class Perfil {
 
         ArrayList<String> aficiones = new ArrayList<>();
         boolean salirAficion = false;
-        
-        while (!salirAficion) {
-            System.out.print("Ingrese una afición para el perfil: ");
+
+        while (salirAficion) {
+            System.out.print("Ingrese una aficion para el perfil: ");
             aficiones.add(teclado.nextLine());
 
-            System.out.println("¿Desea agregar otra afición al perfil? (si/no)");
-            if (teclado.nextLine().equalsIgnoreCase("no")) {
+            System.out.println("Â¿Desea agregar otra aficion al perfil? (si/no)");
+            String aficionOpcion = teclado.nextLine();
+
+            if (aficionOpcion.equalsIgnoreCase("no")) {
                 salirAficion = true;
             }
         }
 
-        return new Perfil(estatura, peso, edad, colorOjos, colorPelo, nivelCultural, nivelCarinio, companierismo, alegre, salidor, aficiones);
+        return new Perfil(estatura, peso, colorOjos, colorPelo, nivelCultural, nivelCarinio, companierismo, alegre, salidor, aficiones);
     }
 }

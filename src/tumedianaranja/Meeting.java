@@ -5,80 +5,56 @@
 package tumedianaranja;
 
 import java.time.LocalDate;
+import java.util.Date;
 
-/**
- *
- * @author patri
- */
 public class Meeting {
-    private Place place;
-    private String nombre;
-    private LocalDate fecha;
-    private int pointsEarned; 
-    private String detalle;
-    private String[] experiencia;
 
-    public Meeting(Place place, String nombre, LocalDate fecha, int pointsEarned, String detalle) {
-        this.place = place;
-        this.nombre = nombre;
-        this.fecha = fecha;
-        this.pointsEarned = pointsEarned;
-        this.detalle = detalle;
-        this.experiencia={};
+    private LocalDate fechaMeeting;
+    private int puntosObtenidos;
+    private String observaciones;
+    private Place lugarReunion;
+
+    public Meeting(LocalDate fechaMeeting, int puntosObtenidos, String observaciones, Place lugarReunion) {
+        this.fechaMeeting = fechaMeeting;
+        this.puntosObtenidos = puntosObtenidos;
+        this.observaciones = observaciones;
+        this.lugarReunion = lugarReunion;
     }
 
-    public Place getPlace() {
-        return place;
+    public LocalDate getFechaMeeting() {
+        return fechaMeeting;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
+    public void setFechaMeeting(LocalDate fechaMeeting) {
+        this.fechaMeeting = fechaMeeting;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getPuntosObtenidos() {
+        return puntosObtenidos;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPuntosObtenidos(int puntosObtenidos) {
+        this.puntosObtenidos = puntosObtenidos;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
-    public int getPointsEarned() {
-        return pointsEarned;
+    public Place getLugarReunion() {
+        return lugarReunion;
     }
 
-    public void setPointsEarned(int pointsEarned) {
-        this.pointsEarned = pointsEarned;
-    }
-
-    public String getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
-    }
-
-    public String[] getExperiencia() {
-        return experiencia;
-    }
-
-    public void setExperiencia(String[] experiencia) {
-        this.experiencia = experiencia;
+    public void setLugarReunion(Place lugarReunion) {
+        this.lugarReunion = lugarReunion;
     }
 
     @Override
     public String toString() {
-        return "Meeting{" + "place=" + place + ", nombre=" + nombre + ", fecha=" + fecha + ", pointsEarned=" + pointsEarned + ", detalle=" + detalle + ", experiencia=" + experiencia + '}';
-    }
-    
-    
+        return "Meeting{" + "fechaMeeting=" + fechaMeeting + ", puntosObtenidos=" + puntosObtenidos + ", observaciones=" + observaciones + ", lugarReunion=" + lugarReunion + '}';
+    } 
 }

@@ -25,14 +25,14 @@ public class Soltero extends Usuario {
     private int edad;
     private boolean hijos;
     private Soltero crush;
-    private Tarjeta tarjetaCobro;
-    private ArrayList<StoryMatch> story;
+    private MedioDePago medioDePago;
+    private ArrayList<Match> story;
     private LocalDate fechaCreacion;
 
-    public Soltero(String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, Tarjeta tarjetaCobro, String nombre, String password) {
+    public Soltero(String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, MedioDePago medioDePago, String nombre, String password) {
         super(nombre, password);
-        this.preferencias = new ArrayList<>();       
         this.perfil = Perfil.crearPerfil();
+        this.preferencias = new ArrayList<>();
         this.nombreCompleto = nombreCompleto;
         this.dni = dni;
         this.domicilio = domicilio;
@@ -41,10 +41,9 @@ public class Soltero extends Usuario {
         this.sexo = sexo;
         this.edad = edad;
         this.hijos = hijos;
-        this.tarjetaCobro = tarjetaCobro;
+        this.medioDePago = medioDePago;
         this.fechaCreacion = LocalDate.now();
         this.cargarPreferencias();
-       
 
     }
 
@@ -140,19 +139,19 @@ public class Soltero extends Usuario {
         this.crush = crush;
     }
 
-    public Tarjeta getTarjetaCobro() {
-        return tarjetaCobro;
+    public MedioDePago getMedioDePago() {
+        return medioDePago;
     }
 
-    public void setTarjetaCobro(Tarjeta tarjetaCobro) {
-        this.tarjetaCobro = tarjetaCobro;
+    public void setMedioDePago(MedioDePago medioDePago) {
+        this.medioDePago = medioDePago;
     }
 
-    public ArrayList<StoryMatch> getStory() {
+    public ArrayList<Match> getStory() {
         return story;
     }
 
-    public void setStory(ArrayList<StoryMatch> story) {
+    public void setStory(ArrayList<Match> story) {
         this.story = story;
     }
 
@@ -169,23 +168,22 @@ public class Soltero extends Usuario {
         }
     }
 
-    public void cargarPreferencias(){
+    public void cargarPreferencias() {
         Scanner teclado = new Scanner(System.in);
-        boolean salir=false;
-        ArrayList<String> aficiones=new ArrayList();
-        boolean saliraficion=false;
-        while(!saliraficion){
-        System.out.println("Ingrese una aficion ");
-        String aficion= teclado.nextLine();
-        aficiones.add(aficion);
+        boolean salir = false;
+        ArrayList<String> aficiones = new ArrayList();
+        boolean saliraficion = false;
+        while (!saliraficion) {
+            System.out.println("Ingrese una aficion ");
+            String aficion = teclado.nextLine();
+            aficiones.add(aficion);
             System.out.println("desea agregar otra?");
-            if(teclado.nextLine().equalsIgnoreCase("no")){
-                saliraficion=true;
+            if (teclado.nextLine().equalsIgnoreCase("no")) {
+                saliraficion = true;
             }
-            
+
+        }
+        Preferencia nueva = new Preferencia(aficiones, LocalDate.now());
     }
-        Preferencia nueva= new Preferencia(aficiones,LocalDate.now());
-    }
-    
-    
+
 }
