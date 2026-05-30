@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tumedianaranja;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author patri
- */
+
 public class Soltero extends Usuario {
 
     private Perfil perfil;
@@ -41,12 +35,15 @@ public class Soltero extends Usuario {
         this.sexo = sexo;
         this.edad = edad;
         this.hijos = hijos;
+        this.crush = null;
         this.medioDePago = medioDePago;
         this.fechaCreacion = LocalDate.now();
         this.cargarPreferencias();
 
     }
 
+    
+    
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
@@ -155,9 +152,7 @@ public class Soltero extends Usuario {
         this.story = story;
     }
 
-    public void VideoChat(Soltero soltero1, Soltero soltero2) {
-
-    }
+    
 
     public void verPreferenciasDate(LocalDate fecha) {
         for (Preferencia aux : preferencias) {

@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tumedianaranja;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 public class Match {
@@ -115,7 +112,12 @@ public class Match {
         this.comentariosAdicionales = comentariosAdicionales;
     }
     
-    
+    public void VideoChat(Soltero soltero1, Soltero soltero2) {
+        
+        System.out.println("El soltero 1: " + soltero1.getNombreCompleto() + " inicio un videochat con el soltero 2: " + soltero2.getNombreCompleto());
+        
+        
+    }
    
     
     
@@ -147,13 +149,65 @@ public class Match {
         if(fechaInicio.compareTo(hoy) >= 30 && meetings.isEmpty()){ 
             fechaFin = hoy; 
             resultado = "DISLIKE";
-            cobrarServicioInactividad(a, b); // falta agregar
+            cobrarServicioConRecargo(a);
+            cobrarServicioConRecargo(b);
             System.out.println("Se cobro el servicio a los dos solteros por inactividad");
         } else{
             System.out.println("No se cobro el servicio a los dos solteros por inactividad");
         }               
     }
     
+    // tarifa con recargo: 18000 pesos;
+    public void cobrarServicioConRecargo(Soltero solteroCobrado){
+        
+        Double tarifaRecargada = 18000.0;
+        Double nuevoSaldo = solteroCobrado.getMedioDePago().saldo - tarifaRecargada;
+        solteroCobrado.getMedioDePago().setSaldo(nuevoSaldo);
+        System.out.println("Se realizo un cobro recargado al soltero: " + solteroCobrado.getNombreCompleto());
+    }
+    
+    //tarifa normal 14000
+    public void cobrarServicioNormal(Soltero solteroCobrado){
+        if(solteroCobrado.getCrush() == null){
+            Double tarifaNormal = 12000.0;
+            Double nuevoSaldo = solteroCobrado.getMedioDePago().saldo - tarifaNormal;
+            solteroCobrado.getMedioDePago().setSaldo(nuevoSaldo);
+            System.out.println("Se realizo un cobro especial por no tener crush al soltero: " + solteroCobrado.getNombreCompleto());
+        } else if(solteroCobrado.getCrush() != null || solteroCobrado.getFechaCreacion().isBefore(LocalDate.now().minusDays(365))){
+            Double tarifaNormal = 3000.0;
+            Double nuevoSaldo = solteroCobrado.getMedioDePago().saldo - tarifaNormal;
+            solteroCobrado.getMedioDePago().setSaldo(nuevoSaldo);
+            System.out.println("Se realizo un cobro especial por tener crush o estar mas de 1 year, al soltero: " + solteroCobrado.getNombreCompleto());
+        } 
+        else{
+            Double tarifaNormal = 14000.0;
+            Double nuevoSaldo = solteroCobrado.getMedioDePago().saldo - tarifaNormal;
+            solteroCobrado.getMedioDePago().setSaldo(nuevoSaldo);
+            System.out.println("Se realizo un cobro normal; al soltero: " + solteroCobrado.getNombreCompleto());
+        }
+        
+    }
+    
+    public void finalizarMatch(Soltero a, Soltero b){
+        
+        if(a.getCrush() != null && b.getCrush() != null){
+            a.setCrush(null);
+            b.setCrush(null);
+            System.out.println("Se dio de baja el match entre los solteros: " + a.getNombreCompleto() + ", " + b.getNombreCompleto());
+        } else{
+            System.out.println("Los solteros no coinciden haciendo match, por lo tanto no se cancela");
+        }
+        
+        
+    }
+    
+    public void verLugares(ArrayList<Meeting> insertarMeetings){
+        for(Meeting meetingListado : insertarMeetings){
+            
+            System.out.println(meetingListado.getLugarReunion().getNombre());
+            
+        }
+    }
     
     public static void listarMeetings(ArrayList<Meeting> insertarMeetings){
         

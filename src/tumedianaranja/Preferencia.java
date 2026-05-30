@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tumedianaranja;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
-/**
- *
- * @author patri
- */
+
 public class Preferencia {
     private ArrayList<Criterio> atributos;
     private ArrayList<String> aficiones;
@@ -47,8 +40,9 @@ public class Preferencia {
         System.out.println("Aficiones :" + aficiones);
         
     }
-     public void cargarCriterios(){
-         Scanner teclado=new Scanner(System.in);
+    
+    public void cargarCriterios(){
+        Scanner teclado=new Scanner(System.in);
         boolean salir=false;
         while (salir==false){
             

@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tumedianaranja;
 
 import java.util.Scanner;
 
-/**
- *
- * @author patri
- */
+
 public class Criterio {
     private String nombre;
     private Object valorDeseado;
