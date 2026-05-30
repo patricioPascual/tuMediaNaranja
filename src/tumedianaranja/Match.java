@@ -157,6 +157,8 @@ public class Match {
         }               
     }
     
+    // estos metodos de cobrarServicios los pusimos en match porque tambien se usar en el de inactividad, entonces queda con un acceso mas facil
+    
     // tarifa con recargo: 18000 pesos;
     public void cobrarServicioConRecargo(Soltero solteroCobrado){
         

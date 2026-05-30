@@ -1,6 +1,8 @@
 
 package tumedianaranja;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -10,10 +12,10 @@ public class TuMediaNaranja {
     public Soltero s2;
 
     public static void main(String[] args) {
-        Soltero s1;
-        Soltero s2;
+        Soltero s1 = null; // null para que no tire error en prueba
+        Soltero s2 = null; // null para que no tire error en prueba
 
-        boolean opcion = false;
+        boolean opcion = true;
         Scanner teclado = new Scanner(System.in);
 
         while (opcion) {
@@ -77,7 +79,88 @@ public class TuMediaNaranja {
             if (opcionLetra.equalsIgnoreCase("s")) {
                 opcion = true;
             } 
+        
+            
+            // AGREGAMOS ESTO EN EL MAIN PARA PROBAR LOS DEMAS METODOS 
+            
+            //////
+            ///
+            ///
+            ///
+            ///
+
+            if (s1 != null) {
+                s2 = new Soltero("Juan Perez", "11222333", "Av. Siempre Viva 742", "juan@email.com", "Soltero", "Masculino", 25, false, null, "juan26", "123456");
+            }
+            
+            
+            
+            Place lugarFicticio = new Place("Cafetería Central", "urbano");
+            Meeting reunionFicticia = new Meeting(LocalDate.now(), 10, "Cita casual", lugarFicticio);
+            
+            ArrayList<Meeting> reunionesPrueba = new ArrayList<>();
+            reunionesPrueba.add(reunionFicticia);
+            
+            
+            Match matchPrueba = new Match(
+                LocalDate.now().minusDays(35), // fechaInicio (hace 35 días para forzar la inactividad de 30 días)
+                LocalDate.now(),               // fechaFin
+                s1,                            // solteroA
+                s2,                            // solteroB
+                "PENDIENTE",                   // resultado
+                100,                           // totalPoints
+                reunionFicticia,               // meeting (objeto individual)
+                reunionesPrueba,               // meetings (lista de prueba)
+                "Ninguno",                     // detallesDeFeedback
+                "Sin comentarios adicionales"  // comentariosAdicionales
+            );
+            
+            // video chat
+            matchPrueba.VideoChat(s1, s2);
+            System.out.println("-----------");
+            
+            // registrar feedbacks
+            Match.registrarFeedbacks(
+                "Buena cita", true, "estuvo bien", 
+                "Copado", true, "quiero repetir"
+            );
+            System.out.println("-----------");
+        
+            // cobro que hicimos en match para la inactividad, los metodos de pago tambien estan en match
+            // ponerle saldo alto a los usuarios a la hora de crear para que no tire error
+            matchPrueba.comprobacionInactividad(s1, s2);
+            System.out.println("-----------");
+            
+            // metodo para finalizar match
+            matchPrueba.finalizarMatch(s1, s2);
+            System.out.println("-----------");
+        
+            // listarMeetings
+            Match.listarMeetings(reunionesPrueba);
+            System.out.println("-----------");
+            
+            // metodo ver lugares
+            matchPrueba.verLugares(reunionesPrueba);
+            System.out.println("-----------");
+            
+            
+            
+        
         }
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
     }
+    
+    
 
 }
