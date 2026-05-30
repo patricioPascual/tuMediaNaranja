@@ -4,6 +4,8 @@
  */
 package tumedianaranja;
 
+import java.util.Scanner;
+
 /**
  *
  * @author patri
@@ -51,4 +53,44 @@ public class Criterio {
         this.ponderacion = ponderacion;
     }
     
+    public static Criterio crearCriterio() {
+        Scanner teclado = new Scanner(System.in);
+
+      
+        System.out.print("Ingrese el nombre del criterio: ");
+        String nombre = teclado.nextLine();
+
+        System.out.print("Ingrese la ponderación (número entero): ");
+        int ponderacion = teclado.nextInt();
+        
+      
+        System.out.println("¿Qué tipo de valor desea ingresar?");
+        System.out.println("1. Texto (String)");
+        System.out.println("2. Número entero (Integer)");
+        System.out.println("3. Verdadero/Falso (Boolean)");
+        System.out.print("Seleccione una opción: ");
+        int opcion = teclado.nextInt();
+        teclado.nextLine(); 
+
+        Object valorDeseado = null;
+
+       
+        if (opcion == 1) {
+            System.out.print("Ingrese el texto deseado: ");
+            valorDeseado = teclado.nextLine(); 
+        } else if (opcion == 2) {
+            System.out.print("Ingrese el número deseado: ");
+            valorDeseado = teclado.nextInt(); 
+        } else if (opcion == 3) {
+            System.out.print("Ingrese el valor (true/false): ");
+            valorDeseado = teclado.nextBoolean();
+        }
+
+        
+        Criterio nuevoCriterio = new Criterio(nombre, valorDeseado, ponderacion);
+        return nuevoCriterio;
+    }
+    
+    
 }
+

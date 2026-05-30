@@ -29,13 +29,10 @@ public class Soltero extends Usuario {
     private ArrayList<StoryMatch> story;
     private LocalDate fechaCreacion;
 
-    public Soltero(Perfil perfil, ArrayList<Preferencia> preferencias, String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, Tarjeta tarjetaCobro, String nombre, String password) {
+    public Soltero(String nombreCompleto, String dni, String domicilio, String email, String estadoCivil, String sexo, int edad, boolean hijos, Tarjeta tarjetaCobro, String nombre, String password) {
         super(nombre, password);
-        Scanner teclado = new Scanner(System.in);
-        this.preferencias = new ArrayList<>();
-        Preferencia prefes = new Preferencia(teclado);
-        this.preferencias.add(prefes);
-        this.perfil = perfil;
+        this.preferencias = new ArrayList<>();       
+        this.perfil = Perfil.crearPerfil();
         this.nombreCompleto = nombreCompleto;
         this.dni = dni;
         this.domicilio = domicilio;
@@ -46,6 +43,8 @@ public class Soltero extends Usuario {
         this.hijos = hijos;
         this.tarjetaCobro = tarjetaCobro;
         this.fechaCreacion = LocalDate.now();
+        this.cargarPreferencias();
+       
 
     }
 
@@ -170,36 +169,23 @@ public class Soltero extends Usuario {
         }
     }
 
-    public String opciones() {
+    public void cargarPreferencias(){
         Scanner teclado = new Scanner(System.in);
-        int opcion = 0;
-
-        do {
-            System.out.println("---ELIGE TU OPCION---");
-            System.out.println("1. Bajo");
-            System.out.println("2. Medio");
-            System.out.println("3. Alto");
-
-            if (teclado.hasNextInt()) {
-                opcion = teclado.nextInt();
-                switch (opcion) {
-                    case 1:
-                        return "Bajo";
-                        
-                    case 2:
-                        return "Medio";
-                        
-                    case 3:
-                        return "Alto";
-                        
-                    default:
-                        System.out.println("Opcion no valida");
-                }
-            } else {
-                System.out.println("Ingrese un numero valido!");
-                teclado.next();
+        boolean salir=false;
+        ArrayList<String> aficiones=new ArrayList();
+        boolean saliraficion=false;
+        while(!saliraficion){
+        System.out.println("Ingrese una aficion ");
+        String aficion= teclado.nextLine();
+        aficiones.add(aficion);
+            System.out.println("desea agregar otra?");
+            if(teclado.nextLine().equalsIgnoreCase("no")){
+                saliraficion=true;
             }
-        } while (opcion < 1 && opcion > 3);
-        return "";
+            
     }
+        Preferencia nueva= new Preferencia(aficiones,LocalDate.now());
+    }
+    
+    
 }
