@@ -24,7 +24,7 @@ public class Meeting {
         this.fecha = fecha;
         this.pointsEarned = pointsEarned;
         this.detalle = detalle;
-        
+        this.experiencia={};
     }
 
     public Place getPlace() {
